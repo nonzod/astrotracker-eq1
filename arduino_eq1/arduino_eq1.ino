@@ -9,6 +9,26 @@
 #define BUTTON_CW_PIN 7
 #define BUTTON_CCW_PIN 8
 
+byte Play[] = {
+  B00000,
+  B01000,
+  B01100,
+  B01110,
+  B01110,
+  B01100,
+  B01000,
+  B00000
+};
+byte Stop[] = {
+  B00000,
+  B01010,
+  B01010,
+  B01010,
+  B01010,
+  B01010,
+  B01010,
+  B00000
+};
 int modState = 0, selectedSpeed = 0;
 bool motorStopped = false, isRunning = false, initAuto = true, initMan = true;
 unsigned long timeout;
@@ -122,12 +142,18 @@ void initStepper() {
   Inizializzazione LCD
 */
 void initLCD() {
+
+  
   lcd.init(); // initialize the lcd
-  // Print a message to the LCD.
   lcd.backlight();
-  lcd.print("Astroinseguitore");
+  lcd.createChar(1, Play);
+  lcd.createChar(2, Stop);
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Astro Tracker EQ1");
   lcd.setCursor(0, 1);
-  lcd.print("Versione 0.7");
+  lcd.print("V. 0.8");
+  
   delay(2000);
   lcd.clear();
   if (modState == LOW) {
@@ -180,14 +206,14 @@ void onCWChanged(const int state) {
       stepper.setSpeed(speedsValue[selectedSpeed]);
 
       lcd.setCursor(15, 1);
-      lcd.print(">");
+      lcd.write(1); // Play char
     }  else {
       stepper.disableOutputs();
       stepper.setCurrentPosition(autoFinalPosition);
       stepper.setSpeed(0);
 
       lcd.setCursor(15, 1);
-      lcd.print("|");
+      lcd.write(2); // Stop char
     }
   }
 }
