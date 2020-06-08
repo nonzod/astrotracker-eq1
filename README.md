@@ -19,47 +19,38 @@ Calcolo degli step necessari per effettuare un giro completo:
 
 Giro completo in **1312000** steps
 
-## AccellStepper
-
-* `runSpeed()` si usa per farlo girare indefinitivamente, quindi usato per i pulsanti
-* `run()` segue invece le destinazioni
-
 ## Velocità e Tempo Siderale
 
-```c
-//steps per full turn = 16(microstepping)*200(stepper resolution)*100(EQ-1 worm gear)*41/20(printed reduction gear)
-//steps per full turn = 656.000
-//seconds per siderian day (=full day turn) = 23*60*60+56*60+4,1 = 86164,1
-//seconds per step = seconds per siderian day / steps per full turn = 0,1313477
-//0,131348 = 1/1.000.000 * 131348 / in microseconds
-//131348/10 (map() has an integer limit, circumvent it by /10 *10)
-//13135 that's the number we take as our base
-//it may need small adjustments because of arduino quartz deviations etc.
-```
 [un secondo solare dura 1,00278 secondi siderali](https://it.wikipedia.org/wiki/Tempo_siderale)
 
 [La durata di un giorno siderale è 86164,1 secondi](https://it.wikipedia.org/wiki/Giorno_siderale) (`23*60*60+56*60+4,1 = 86164,1`)
 
+Calcolo dei secondi per step: `secondi giorno siderale / steps per giro completo`
 
+`86164,1/1312000 = 0,06567385670731707317` (non ci serve ma giusto per averlo)
+
+Calcolo degli step per secondo: `steps per giro completo / secondi giorno siderale`
+
+`1312000/86164,1 = 15,22675917232350828245` arrotondato a **15,23 steps/sec**
 
 ### Stelle
 
-23 ore, 56 minuti e 4.1 secondi circa.
+Per le stelle si imposta la velocità steps/sec per il Giorno Siderale.
 
-
-
-82800+3360+4.1
-
-86164.1
-
-86164100
+**15,23 steps/sec**
 
 ### Luna
 
-`Comunque abbiamo trovato gli stessi dati, ovvero 0.61°/h in longitudine e -0.05°/h in latitudine. Quindi il tuo calcolo per la variazione al minuto era giusto cioè 0.61/60=0,01°/m. Mentre per la latitudine non ha senso fare i calcoli perché basta che vada bene per quello più grande. Ora però credo che l'ordine di grandezza giusto siano i secondi quindi 0.01/60=0.0002°/s.... Non sono un esperto di fotografia, ma anche con un esposizione di 2 secondi avresti un errore di 0,0004°, che penso sia dentro i limiiti.`
+La luna 
+
+## AccellStepper
+
+* `runSpeed()` si usa per farlo girare indefinitivamente, quindi usato per i pulsanti
+* `run()` segue invece le destinazioni
 
 ## Riferimenti
 
 * [Astro Tracker for EQ1 mount](https://www.thingiverse.com/thing:1033336)
 * [Specifiche DRV8825](https://www.pololu.com/product/2133)
 * [Tutorial DRV8825](https://www.mauroalfieri.it/elettronica/drv8825-stepper-driver-arduino.html)
+* [AccellStepper](https://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html)
