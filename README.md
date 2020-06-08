@@ -8,20 +8,25 @@ Quando è attiva la modalità "Inseguimento" la si avvia con il pulsante di rota
 
 Quanto è attiva la modalità "Manuale" ci si sposta nelle due direzione con < e >
 
+## Motore Stepper
+
+Il driver è impostato per lavorare con `32 microstep`
+
+Calcolo degli step necessari per effettuare un giro completo:
+
+* `(microstepping)*(stepper resolution)*(EQ-1 worm gear)*(printed reduction gear)`
+* `32*200*100*(41/20) = 1312000`
+
+Giro completo in **1312000** steps
+
 ## AccellStepper
-
-
 
 * `runSpeed()` si usa per farlo girare indefinitivamente, quindi usato per i pulsanti
 * `run()` segue invece le destinazioni
 
-## Velocità
+## Velocità e Tempo Siderale
 
 ```c
-//may deviate depending on your individual arduino quartz. delay between steps for tracking in
-//1/100.000 seconds, lower number = faster movement
-//(rest of the program adds +20/1.000.000 seconds)
-//calculate like this:
 //steps per full turn = 16(microstepping)*200(stepper resolution)*100(EQ-1 worm gear)*41/20(printed reduction gear)
 //steps per full turn = 656.000
 //seconds per siderian day (=full day turn) = 23*60*60+56*60+4,1 = 86164,1
@@ -31,14 +36,17 @@ Quanto è attiva la modalità "Manuale" ci si sposta nelle due direzione con < e
 //13135 that's the number we take as our base
 //it may need small adjustments because of arduino quartz deviations etc.
 ```
+[un secondo solare dura 1,00278 secondi siderali](https://it.wikipedia.org/wiki/Tempo_siderale)
+
+[La durata di un giorno siderale è 86164,1 secondi](https://it.wikipedia.org/wiki/Giorno_siderale) (`23*60*60+56*60+4,1 = 86164,1`)
+
+
 
 ### Stelle
 
 23 ore, 56 minuti e 4.1 secondi circa.
 
-Considerando i due ingranaggi per fare un giro completo occorrono 1312000 steps
 
-giro completo con ingranaggi: 1312000
 
 82800+3360+4.1
 
@@ -53,4 +61,5 @@ giro completo con ingranaggi: 1312000
 ## Riferimenti
 
 * [Astro Tracker for EQ1 mount](https://www.thingiverse.com/thing:1033336)
+* [Specifiche DRV8825](https://www.pololu.com/product/2133)
 * [Tutorial DRV8825](https://www.mauroalfieri.it/elettronica/drv8825-stepper-driver-arduino.html)
