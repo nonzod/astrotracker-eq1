@@ -41,7 +41,7 @@ Per le stelle si imposta la velocità steps/sec per il Giorno Siderale.
 
 ### Luna
 
-La luna 
+La luna
 
 ## AccellStepper
 
@@ -54,3 +54,4 @@ La luna
 * [Specifiche DRV8825](https://www.pololu.com/product/2133)
 * [Tutorial DRV8825](https://www.mauroalfieri.it/elettronica/drv8825-stepper-driver-arduino.html)
 * [AccellStepper](https://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html)
+* [Icone per OLED](https://www.iconfinder.com/iconsets/space-exploration-set)
