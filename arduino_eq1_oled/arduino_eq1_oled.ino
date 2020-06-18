@@ -41,8 +41,8 @@ bool motorStopped = false, isRunning = false, initAuto = true, initMan = true;
 unsigned long timeout;
 
 float speedsValue[] = { // Velocità di inseguimento per oggetto
-  2000.00, // 15.23 Stelle
-  4000.00,    // Luna
+  15.23, // 15.23 Stelle
+  17,    // Luna
 };
 float
 autoFinalPosition = 54666.00, // Durata dell'inseguimento in ascensione retta (54666 == 1h)
